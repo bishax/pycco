@@ -133,9 +133,9 @@ def parse(code, language):
     for line in lines:
         process_as_code = False
         # Only go into multiline comments section when one of the delimiters is
-        # found to be at the start of a line
+        # found to be at the VERY start of a line (whitespace is a normal character)
         if multistart and multiend \
-           and any(line.lstrip().startswith(delim) or line.rstrip().endswith(delim)
+           and any(line.startswith(delim) or line.endswith(delim)
                    for delim in (multistart, multiend)):
             multi_line = not multi_line
 
@@ -144,7 +144,7 @@ def parse(code, language):
                and len(line.strip()) > len(multiend):
                 multi_line = False
 
-            if not line.strip().startswith(multistart) and not multi_line \
+            if not line.startswith(multistart) and not multi_line \
                or multi_string:
 
                 process_as_code = True

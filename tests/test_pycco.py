@@ -58,14 +58,14 @@ def test_parse(data, source):
 
 
 def test_skip_coding_directive():
-    source = "# -*- coding: utf-8 -*-\n" + FOO_FUNCTION
+    source = "## -*- coding: utf-8 -*-\n" + FOO_FUNCTION
     parsed = p.parse(source, PYTHON)
     for section in parsed:
         assert "coding" not in section['code_text']
 
 
 def test_multi_line_leading_spaces():
-    source = "# This is a\n# comment that\n# is indented\n"
+    source = "## This is a\n## comment that\n## is indented\n"
     source += FOO_FUNCTION
     parsed = p.parse(source, PYTHON)
     # The resulting comment has leading spaces stripped out.
@@ -74,7 +74,7 @@ def test_multi_line_leading_spaces():
 
 def test_comment_with_only_cross_ref():
     source = (
-        '''# ==Link Target==\n\ndef test_link():\n    """[[testing.py#link-target]]"""\n    pass'''
+        '''## ==Link Target==\n\ndef test_link():\n"""[[testing.py#link-target]]"""\n    pass'''
     )
     sections = p.parse(source, PYTHON)
     p.highlight(sections, PYTHON, outdir=tempfile.gettempdir())
@@ -133,7 +133,7 @@ multi-line-string
 
 y = z  # comment
 
-# *comment with formatting*
+## *comment with formatting*
 
 def x():
     """multi-line-string
