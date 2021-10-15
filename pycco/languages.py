@@ -7,7 +7,7 @@ add another language to Pycco's repertoire, add it here.
 __all__ = ("supported_languages",)
 
 DOUBLE_HASH = "##"
-TRIPLE_QUOTE = '"""'
+TRIPLE_QUOTE = '"""#'
 
 def lang(name, comment_symbol, multistart=None, multiend=None):
     """
